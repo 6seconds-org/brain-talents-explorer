@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The 18 Brain Talents · Six Seconds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c-focus: #1d8cc4;
+    --c-decisions: #e25c2c;
+    --c-drive: #6fb43d;
+    --c-text: #1a2a3a;
+    --c-muted: #5a6b7a;
+    --c-bg: #ffffff;
+    --c-border: #e5ebf0;
+    --c-hover-bg: #f5f9fc;
+    --shadow-modal: 0 18px 60px rgba(20, 40, 60, 0.25);
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: "Open Sans", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 22px 32px;
+  }
+  header.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .title h1 {
+    font-size: 1.45rem;
+    margin: 0 0 2px;
+    font-weight: 700;
+    color: var(--c-text);
+  }
+  .title p {
+    margin: 0;
+    color: var(--c-muted);
+    font-size: 0.92rem;
+  }
+  .lang {
+    display: inline-flex;
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .lang button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 7px 13px;
+    font: 600 0.82rem/1 "Open Sans", sans-serif;
+    color: var(--c-muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang button + button { border-left: 1px solid var(--c-border); }
+  .lang button:hover { background: var(--c-hover-bg); color: var(--c-text); }
+  .lang button.active { background: var(--c-text); color: #fff; }
+
+  .scale {
+    margin-bottom: 14px;
+  }
+  .scale-bar {
+    position: relative;
+    height: 38px;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    margin-bottom: 6px;
+    color: var(--c-focus);
+  }
+  .scale.decisions .scale-bar { color: var(--c-decisions); }
+  .scale.drive .scale-bar { color: var(--c-drive); }
+  .scale-bar .scale-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .arrow {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+  }
+  .scale-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    align-items: start;
+    position: relative;
+  }
+  .scale-row::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    bottom: 16px;
+    width: 1px;
+    background: var(--c-border);
+    transform: translateX(-0.5px);
+  }
+  .talent {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 12px 6px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    color: var(--c-text);
+    font-family: inherit;
+    min-height: 130px;
+  }
+  .talent:hover, .talent:focus-visible {
+    background: var(--c-hover-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(20, 40, 60, 0.10);
+    outline: none;
+  }
+  .talent .icon {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+  .talent .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  .talent .label {
+    font-size: 0.86rem;
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--c-text);
+  }
+
+  /* Modal */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 40, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    animation: fade 0.18s ease;
+  }
+  .backdrop.open { display: flex; }
+  @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+  .modal {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-modal);
+    max-width: 460px;
+    width: 100%;
+    padding: 28px 28px 26px;
+    text-align: center;
+    position: relative;
+    animation: pop 0.22s cubic-bezier(.2,.9,.3,1.2);
+  }
+  @keyframes pop {
+    from { transform: translateY(8px) scale(0.96); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .modal .m-icon {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 14px;
+  }
+  .modal .m-icon img { width: 100%; height: 100%; object-fit: contain; }
+  .modal h2 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--c-text);
+  }
+  .modal .m-cluster {
+    display: inline-block;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .modal .m-cluster.focus { background: var(--c-focus); }
+  .modal .m-cluster.decisions { background: var(--c-decisions); }
+  .modal .m-cluster.drive { background: var(--c-drive); }
+  .modal .m-def {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--c-text);
+    margin: 0;
+  }
+  .modal .close-hint {
+    margin-top: 18px;
+    font-size: 0.78rem;
+    color: var(--c-muted);
+  }
+
+  footer.attrib {
+    margin-top: 22px;
+    text-align: center;
+    color: var(--c-muted);
+    font-size: 0.78rem;
+  }
+  footer.attrib a { color: inherit; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 14px; }
+    .scale-row { grid-template-columns: repeat(3, 1fr); row-gap: 0; }
+    .scale-row::before { display: none; }
+    .talent { min-height: 120px; }
+    .talent .icon { width: 60px; height: 60px; }
+    .scale-bar { height: 34px; padding: 0 14px; }
+    .scale-bar .scale-name { font-size: 0.92rem; }
+    .title h1 { font-size: 1.2rem; }
+  }
+  @media (max-width: 420px) {
+    .scale-row { grid-template-columns: repeat(2, 1fr); }
+    .talent .label { font-size: 0.8rem; }
+  }
+
+  html[lang="zh"] body { font-family: "Noto Sans SC", "Open Sans", sans-serif; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <div class="title">
+      <h1 data-i18n="title">The 18 Brain Talents</h1>
+      <p data-i18n="subtitle">Click any talent to learn more</p>
+    </div>
+    <nav class="lang" aria-label="Language">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="it">IT</button>
+      <button type="button" data-lang="zh">中文</button>
+      <button type="button" data-lang="es">ES</button>
+    </nav>
+  </header>
+
+  <section class="scale focus" aria-labelledby="s-focus">
+    <div class="scale-bar" role="heading" aria-level="2">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      <span class="scale-name" id="s-focus" data-i18n="scale.focus">Focus</span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6"/></svg>
+    </div>
+    <div class="scale-row" data-row="focus"></div>
+  </section>
+
+  <section class="scale decisions" aria-labelledby="s-decisions">
+    <div class="scale-bar" role="heading" aria-level="2">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      <span class="scale-name" id="s-decisions" data-i18n="scale.decisions">Decisions</span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6"/></svg>
+    </div>
+    <div class="scale-row" data-row="decisions"></div>
+  </section>
+
+  <section class="scale drive" aria-labelledby="s-drive">
+    <div class="scale-bar" role="heading" aria-level="2">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      <span class="scale-name" id="s-drive" data-i18n="scale.drive">Drive</span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6"/></svg>
+    </div>
+    <div class="scale-row" data-row="drive"></div>
+  </section>
+
+  <footer class="attrib">
+    <span data-i18n="footer">© Six Seconds — The Emotional Intelligence Network · <a href="https://www.6seconds.org/" target="_blank" rel="noopener">6seconds.org</a></span>
+  </footer>
+</div>
+
+<div class="backdrop" id="backdrop" role="dialog" aria-modal="true" aria-labelledby="m-name" tabindex="-1">
+  <div class="modal">
+    <div class="m-icon"><img id="m-icon" src="" alt=""></div>
+    <span class="m-cluster" id="m-cluster"></span>
+    <h2 id="m-name"></h2>
+    <p class="m-def" id="m-def"></p>
+    <div class="close-hint" data-i18n="closeHint">Click anywhere to close</div>
+  </div>
+</div>
+
+<script>
+/* ----- Talent data -----
+   Order across each row matches brain-talents.svg:
+   Focus   : Data Mining, Modeling, Prioritizing | Connection, Emotional Insight, Collaboration
+   Decisions: Reflection, Adaptability, Critical Thinking | Resilience, Risk Tolerance, Imagination
+   Drive   : Proactivity, Commitment, Problem Solving | Vision, Design, Entrepreneurship
+*/
+const TALENTS = [
+  // Focus
+  { id: "data-mining",       scale: "focus" },
+  { id: "modeling",          scale: "focus" },
+  { id: "prioritizing",      scale: "focus" },
+  { id: "connection",        scale: "focus" },
+  { id: "emotional-insight", scale: "focus" },
+  { id: "collaboration",     scale: "focus" },
+  // Decisions
+  { id: "reflection",        scale: "decisions" },
+  { id: "adaptability",      scale: "decisions" },
+  { id: "critical-thinking", scale: "decisions" },
+  { id: "resilience",        scale: "decisions" },
+  { id: "risk-tolerance",    scale: "decisions" },
+  { id: "imagination",       scale: "decisions" },
+  // Drive
+  { id: "proactivity",       scale: "drive" },
+  { id: "commitment",        scale: "drive" },
+  { id: "problem-solving",   scale: "drive" },
+  { id: "vision",            scale: "drive" },
+  { id: "design",            scale: "drive" },
+  { id: "entrepreneurship",  scale: "drive" },
+];
+
+const I18N = {
+  en: {
+    title: "The 18 Brain Talents",
+    subtitle: "Click any talent to learn more",
+    closeHint: "Click anywhere to close",
+    footer: '© Six Seconds — The Emotional Intelligence Network · <a href="https://www.6seconds.org/" target="_blank" rel="noopener">6seconds.org</a>',
+    scale: { focus: "Focus", decisions: "Decisions", drive: "Drive" },
+    cluster: { focus: "Focus", decisions: "Decisions", drive: "Drive" },
+    talents: {
+      "data-mining":       { name: "Data Mining",        def: "Filtering to assess key information." },
+      "modeling":          { name: "Modeling",           def: "Mapping out logical possibilities." },
+      "prioritizing":      { name: "Prioritizing",       def: "Seeing and sorting possible paths." },
+      "connection":        { name: "Connection",         def: "Sensing & mirroring others' emotions." },
+      "emotional-insight": { name: "Emotional Insight",  def: "Understanding people and human dynamics." },
+      "collaboration":     { name: "Collaboration",      def: "Creating harmony between people." },
+      "reflection":        { name: "Reflection",         def: "Pausing to assess." },
+      "adaptability":      { name: "Adaptability",       def: "Accepting multiple perspectives." },
+      "critical-thinking": { name: "Critical Thinking",  def: "Evaluating, assessing, and planning." },
+      "resilience":        { name: "Resilience",         def: "Bouncing ahead." },
+      "risk-tolerance":    { name: "Risk Tolerance",     def: "Accepting the unknown potential." },
+      "imagination":       { name: "Imagination",        def: "Seeing the unknown." },
+      "proactivity":       { name: "Proactivity",        def: "Acting based on internal drive." },
+      "commitment":        { name: "Commitment",         def: "Maintaining attention on what is important." },
+      "problem-solving":   { name: "Problem Solving",    def: "Inventing solutions to meet present needs." },
+      "vision":            { name: "Vision",             def: "Seeing the long-term meaning." },
+      "design":            { name: "Design",             def: "Expanding attention to create new potential." },
+      "entrepreneurship":  { name: "Entrepreneurship",   def: "Inventing solutions to future challenges." },
+    }
+  },
+  it: {
+    title: "Le 18 App",
+    subtitle: "Clicca su una App per saperne di più",
+    closeHint: "Clicca ovunque per chiudere",
+    footer: '© Six Seconds — La Rete dell\'Intelligenza Emotiva · <a href="https://www.6seconds.it/" target="_blank" rel="noopener">6seconds.it</a>',
+    scale: { focus: "Percezione", decisions: "Valutazione", drive: "Azione" },
+    cluster: { focus: "Percezione", decisions: "Valutazione", drive: "Azione" },
+    talents: {
+      "data-mining":       { name: "Data Mining",        def: "Filtrare per avere le informazioni chiave." },
+      "modeling":          { name: "Modeling",           def: "Collegare in maniera logica info differenti." },
+      "prioritizing":      { name: "Prioritizing",       def: "Prioritizzare le informazioni raccolte." },
+      "connection":        { name: "Connection",         def: "Sentire e connettersi con le emozioni altrui." },
+      "emotional-insight": { name: "Emotional Insight",  def: "Essere emotivamente consapevoli e intuitivi." },
+      "collaboration":     { name: "Collaboration",      def: "Saper creare un buon clima tra persone." },
+      "reflection":        { name: "Reflection",         def: "Fermarsi e valutare pro e contro." },
+      "adaptability":      { name: "Adaptability",       def: "Essere flessibili, adattandosi." },
+      "critical-thinking": { name: "Critical Thinking",  def: "Valutare in maniera critica le situazioni." },
+      "resilience":        { name: "Resilience",         def: "Rimettersi in gioco valutando le alternative." },
+      "risk-tolerance":    { name: "Risk Tolerance",     def: "Gestire l'incertezza e la complessità." },
+      "imagination":       { name: "Imagination",        def: "Saper immaginare ciò che non è conosciuto." },
+      "proactivity":       { name: "Proactivity",        def: "Agire in base ad una motivazione interna." },
+      "commitment":        { name: "Commitment",         def: "Mantenere il focus su ciò che è importante." },
+      "problem-solving":   { name: "Problem Solving",    def: "Trovare pronte soluzioni ai bisogni." },
+      "vision":            { name: "Vision",             def: "Avere un orientamento strategico." },
+      "design":            { name: "Design",             def: "Tracciare il percorso che porta all'obiettivo." },
+      "entrepreneurship":  { name: "Entrepreneurship",   def: "Costruire con motivazione il futuro." },
+    }
+  },
+  zh: {
+    title: "18 个大脑天赋 App",
+    subtitle: "点击任意天赋以了解详情",
+    closeHint: "点击任意位置关闭",
+    footer: '© Six Seconds — 情商网络 · <a href="https://www.6seconds.org/" target="_blank" rel="noopener">6seconds.org</a>',
+    scale: { focus: "关注", decisions: "决策", drive: "驱动" },
+    cluster: { focus: "关注", decisions: "决策", drive: "驱动" },
+    talents: {
+      "data-mining":       { name: "数据挖掘",   def: "过滤数据，评估关键信息。" },
+      "modeling":          { name: "模型建构",   def: "计划合理的可能性。" },
+      "prioritizing":      { name: "目标优选",   def: "发现并挑选可能的途径。" },
+      "connection":        { name: "建立关系",   def: "察觉和映射他人的情绪。" },
+      "emotional-insight": { name: "情感洞察",   def: "理解他人及人类的行为动力。" },
+      "collaboration":     { name: "协作",       def: "创造和谐的人际关系。" },
+      "reflection":        { name: "反思",       def: "暂停下来进行评估。" },
+      "adaptability":      { name: "适应力",     def: "接受多种视角。" },
+      "critical-thinking": { name: "批判性思维", def: "评估、分析、计划。" },
+      "resilience":        { name: "抗挫力",     def: "恢复活力，继续向前。" },
+      "risk-tolerance":    { name: "风险承受力", def: "接受未知和潜在的可能性。" },
+      "imagination":       { name: "想象力",     def: "预见未知的可能性。" },
+      "proactivity":       { name: "主动性",     def: "基于内在动力采取行动。" },
+      "commitment":        { name: "专注投入",   def: "维持对重要事物的关注。" },
+      "problem-solving":   { name: "问题解决",   def: "创造对策以满足当前的需求。" },
+      "vision":            { name: "远见",       def: "看到长期的意义。" },
+      "design":            { name: "设计",       def: "拓展视野，创造新的可能性。" },
+      "entrepreneurship":  { name: "创业精神",   def: "创造对策以应对未来的挑战。" },
+    }
+  },
+  es: {
+    title: "Las 18 Brain Apps",
+    subtitle: "Haz clic en cualquier talento para saber más",
+    closeHint: "Haz clic en cualquier lugar para cerrar",
+    footer: '© Six Seconds — La Red de Inteligencia Emocional · <a href="https://esp.6seconds.org/" target="_blank" rel="noopener">esp.6seconds.org</a>',
+    scale: { focus: "Enfoque", decisions: "Decisión", drive: "Motivación" },
+    cluster: { focus: "Enfoque", decisions: "Decisión", drive: "Motivación" },
+    talents: {
+      "data-mining":       { name: "Data Mining",            def: "Permite notar, observar y organizar detalles dentro del todo." },
+      "modeling":          { name: "Modelado",               def: "Diseño de diferentes posibilidades e identificar alternativas lógicas." },
+      "prioritizing":      { name: "Priorización",           def: "Establecer prioridades de acuerdo a las necesidades." },
+      "connection":        { name: "Conexión",               def: "Permite vincularse con los demás; esencial para desarrollar lazos sólidos, construir redes y alianzas significativas." },
+      "emotional-insight": { name: "Percepción Emocional",   def: "Ayuda a entender a las personas y predecir sus necesidades y dinámicas." },
+      "collaboration":     { name: "Colaboración",           def: "Refleja la capacidad de conectarse para trabajar en grupo con entendimiento mutuo." },
+      "reflection":        { name: "Reflexión",              def: "Inclinarse a evaluar los riesgos antes de lanzarse a la acción." },
+      "adaptability":      { name: "Adaptabilidad",          def: "Permite ordenar y clasificar diversas perspectivas, evaluando y adaptándose al cambio." },
+      "critical-thinking": { name: "Pensamiento Crítico",    def: "Desarrolla pensamiento crítico para decisiones adecuadas; evalúa los pros y contras en el presente y en el futuro." },
+      "resilience":        { name: "Resiliencia",            def: "Convierte los desafíos en oportunidades a la vez que se avanza." },
+      "risk-tolerance":    { name: "Tolerancia al Riesgo",   def: "Toma en cuenta diferentes grados de complejidad mientras mantiene un balance." },
+      "imagination":       { name: "Imaginación",            def: "Permite ver más allá de lo visible, combinando información racional con emociones para encontrar el potencial." },
+      "proactivity":       { name: "Proactividad",           def: "Se compromete a tomar acción, sin la necesidad de presiones externas. Es proactivo." },
+      "commitment":        { name: "Compromiso",             def: "Mantiene el enfoque y la atención en lo que es importante." },
+      "problem-solving":   { name: "Resolución de Problemas",def: "Crea soluciones para las necesidades." },
+      "vision":            { name: "Visión",                 def: "Crea y sustenta una visión a largo plazo que le provee energía y propósito." },
+      "design":            { name: "Diseño",                 def: "Ayuda a combinar la visión a largo plazo dentro del contexto actual." },
+      "entrepreneurship":  { name: "Emprendimiento",         def: "Facilita la capacidad para emprender la búsqueda de potencial." },
+    }
+  },
+};
+
+/* ----- Render ----- */
+const rows = {
+  focus: document.querySelector('[data-row="focus"]'),
+  decisions: document.querySelector('[data-row="decisions"]'),
+  drive: document.querySelector('[data-row="drive"]'),
+};
+
+function renderTalents() {
+  for (const k of Object.keys(rows)) rows[k].innerHTML = "";
+  TALENTS.forEach(t => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "talent";
+    btn.dataset.id = t.id;
+    btn.dataset.scale = t.scale;
+    btn.setAttribute("aria-label", t.id);
+    btn.innerHTML =
+      `<span class="icon"><img src="talents/${t.id}.svg" alt="" loading="lazy"></span>` +
+      `<span class="label" data-label></span>`;
+    btn.addEventListener("click", () => openModal(t));
+    rows[t.scale].appendChild(btn);
+  });
+}
+
+/* ----- Language ----- */
+let currentLang = "en";
+function applyLang(lang) {
+  currentLang = lang;
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+  // Static text
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    const val = key.split(".").reduce((o, k) => (o ? o[k] : undefined), dict);
+    if (val !== undefined) el.innerHTML = val;
+  });
+  // Talent labels
+  document.querySelectorAll(".talent").forEach(btn => {
+    const id = btn.dataset.id;
+    const tl = dict.talents[id];
+    btn.querySelector("[data-label]").textContent = tl.name;
+    btn.setAttribute("aria-label", tl.name);
+  });
+  // Lang button state
+  document.querySelectorAll(".lang button").forEach(b => {
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+  // Persist
+  try { localStorage.setItem("bt_lang", lang); } catch (_) {}
+  // If modal is open, refresh contents
+  if (backdrop.classList.contains("open") && currentTalent) openModal(currentTalent);
+}
+
+document.querySelectorAll(".lang button").forEach(btn => {
+  btn.addEventListener("click", () => applyLang(btn.dataset.lang));
+});
+
+/* ----- Modal ----- */
+const backdrop = document.getElementById("backdrop");
+const mIcon = document.getElementById("m-icon");
+const mName = document.getElementById("m-name");
+const mDef  = document.getElementById("m-def");
+const mClus = document.getElementById("m-cluster");
+let currentTalent = null;
+let lastFocus = null;
+
+function openModal(t) {
+  currentTalent = t;
+  const dict = I18N[currentLang];
+  const tl = dict.talents[t.id];
+  mIcon.src = `talents/${t.id}.svg`;
+  mIcon.alt = tl.name;
+  mName.textContent = tl.name;
+  mDef.textContent  = tl.def;
+  mClus.textContent = dict.cluster[t.scale];
+  mClus.className = "m-cluster " + t.scale;
+  if (!backdrop.classList.contains("open")) {
+    lastFocus = document.activeElement;
+    backdrop.classList.add("open");
+    backdrop.focus();
+    document.body.style.overflow = "hidden";
+  }
+}
+function closeModal() {
+  backdrop.classList.remove("open");
+  currentTalent = null;
+  document.body.style.overflow = "";
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+backdrop.addEventListener("click", closeModal);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && backdrop.classList.contains("open")) closeModal();
+});
+
+/* ----- Init ----- */
+renderTalents();
+let initLang = "en";
+try {
+  const saved = localStorage.getItem("bt_lang");
+  if (saved && I18N[saved]) initLang = saved;
+  else {
+    const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
+    if (I18N[nav]) initLang = nav;
+  }
+} catch (_) {}
+applyLang(initLang);
+</script>
+</body>
+</html>
