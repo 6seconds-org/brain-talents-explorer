@@ -79,9 +79,13 @@
     margin-bottom: 14px;
   }
   .scale-bar {
+    appearance: none;
+    font-family: inherit;
+    width: 100%;
     position: relative;
     height: 38px;
     border: 2px solid currentColor;
+    background: transparent;
     border-radius: 999px;
     display: flex;
     align-items: center;
@@ -89,9 +93,15 @@
     padding: 0 18px;
     margin-bottom: 6px;
     color: var(--c-focus);
+    cursor: pointer;
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
   }
   .scale.decisions .scale-bar { color: var(--c-decisions); }
   .scale.drive .scale-bar { color: var(--c-drive); }
+  .scale.focus      .scale-bar:hover, .scale.focus      .scale-bar:focus-visible { background: rgba(29, 140, 196, 0.08); box-shadow: 0 4px 14px rgba(29,140,196,0.15); }
+  .scale.decisions  .scale-bar:hover, .scale.decisions  .scale-bar:focus-visible { background: rgba(226, 92, 44, 0.08);  box-shadow: 0 4px 14px rgba(226,92,44,0.15); }
+  .scale.drive      .scale-bar:hover, .scale.drive      .scale-bar:focus-visible { background: rgba(111, 180, 61, 0.10); box-shadow: 0 4px 14px rgba(111,180,61,0.18); }
+  .scale-bar:hover, .scale-bar:focus-visible { outline: none; transform: translateY(-1px); }
   .scale-bar .scale-name {
     position: absolute;
     left: 50%;
@@ -233,6 +243,116 @@
     color: var(--c-muted);
   }
 
+  /* Wider scale modal */
+  .modal.scale-modal {
+    max-width: 760px;
+    text-align: left;
+    padding: 30px 32px 28px;
+  }
+  .modal.scale-modal .sm-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .modal.scale-modal .sm-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    flex: 0 0 auto;
+  }
+  .modal.scale-modal.focus     .sm-dot { background: var(--c-focus); }
+  .modal.scale-modal.decisions .sm-dot { background: var(--c-decisions); }
+  .modal.scale-modal.drive     .sm-dot { background: var(--c-drive); }
+  .modal.scale-modal h2.sm-title { margin: 0; font-size: 1.7rem; }
+  .modal.scale-modal.focus     h2.sm-title { color: var(--c-focus); }
+  .modal.scale-modal.decisions h2.sm-title { color: var(--c-decisions); }
+  .modal.scale-modal.drive     h2.sm-title { color: var(--c-drive); }
+  .modal.scale-modal .sm-question {
+    margin: 0 0 18px 58px;
+    color: var(--c-text);
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+  .modal.scale-modal .sm-bar {
+    position: relative;
+    height: 38px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .modal.scale-modal.focus     .sm-bar { background: var(--c-focus); }
+  .modal.scale-modal.decisions .sm-bar { background: var(--c-decisions); }
+  .modal.scale-modal.drive     .sm-bar { background: var(--c-drive); }
+  .modal.scale-modal .sm-bar .sm-left-label,
+  .modal.scale-modal .sm-bar .sm-right-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex: 1 1 0;
+    padding: 0 8px;
+  }
+  .modal.scale-modal .sm-bar .sm-left-label { text-align: left; }
+  .modal.scale-modal .sm-bar .sm-right-label { text-align: right; }
+  .modal.scale-modal .sm-bar .sm-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.55);
+    flex: 0 0 auto;
+  }
+  .modal.scale-modal .sm-bar .arrow { color: #fff; }
+  .modal.scale-modal .sm-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .modal.scale-modal .sm-pill {
+    border-radius: 12px;
+    padding: 16px 18px 18px;
+    border: 1px solid transparent;
+  }
+  .modal.scale-modal.focus     .sm-pill { background: #eef6fb; border-color: #cfe6f2; }
+  .modal.scale-modal.decisions .sm-pill { background: #fceee8; border-color: #f4cbbb; }
+  .modal.scale-modal.drive     .sm-pill { background: #eef6e5; border-color: #d2e6bf; }
+  .modal.scale-modal .sm-pill h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .modal.scale-modal.focus     .sm-pill h3 { color: var(--c-focus); }
+  .modal.scale-modal.decisions .sm-pill h3 { color: var(--c-decisions); }
+  .modal.scale-modal.drive     .sm-pill h3 { color: var(--c-drive); }
+  .modal.scale-modal .sm-pill p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--c-text);
+  }
+  .modal.scale-modal .sm-note {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    background: #f5f8fa;
+    border-left: 3px solid var(--c-border);
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+  .modal.scale-modal.focus     .sm-note { border-left-color: var(--c-focus); }
+  .modal.scale-modal.decisions .sm-note { border-left-color: var(--c-decisions); }
+  .modal.scale-modal.drive     .sm-note { border-left-color: var(--c-drive); }
+  @media (max-width: 640px) {
+    .modal.scale-modal { padding: 22px 20px 20px; }
+    .modal.scale-modal .sm-cols { grid-template-columns: 1fr; }
+    .modal.scale-modal h2.sm-title { font-size: 1.35rem; }
+    .modal.scale-modal .sm-question { margin-left: 58px; font-size: 0.92rem; }
+    .modal.scale-modal .sm-bar .sm-left-label,
+    .modal.scale-modal .sm-bar .sm-right-label { font-size: 0.75rem; }
+  }
+
   footer.attrib {
     margin-top: 22px;
     text-align: center;
@@ -275,29 +395,29 @@
   </header>
 
   <section class="scale focus" aria-labelledby="s-focus">
-    <div class="scale-bar" role="heading" aria-level="2">
+    <button type="button" class="scale-bar" data-scale="focus" aria-label="Focus — click to learn more">
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
       <span class="scale-name" id="s-focus" data-i18n="scale.focus">Focus</span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6"/></svg>
-    </div>
+    </button>
     <div class="scale-row" data-row="focus"></div>
   </section>
 
   <section class="scale decisions" aria-labelledby="s-decisions">
-    <div class="scale-bar" role="heading" aria-level="2">
+    <button type="button" class="scale-bar" data-scale="decisions" aria-label="Decisions — click to learn more">
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
       <span class="scale-name" id="s-decisions" data-i18n="scale.decisions">Decisions</span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6"/></svg>
-    </div>
+    </button>
     <div class="scale-row" data-row="decisions"></div>
   </section>
 
   <section class="scale drive" aria-labelledby="s-drive">
-    <div class="scale-bar" role="heading" aria-level="2">
+    <button type="button" class="scale-bar" data-scale="drive" aria-label="Drive — click to learn more">
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
       <span class="scale-name" id="s-drive" data-i18n="scale.drive">Drive</span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l6 6-6 6"/></svg>
-    </div>
+    </button>
     <div class="scale-row" data-row="drive"></div>
   </section>
 
@@ -312,6 +432,35 @@
     <span class="m-cluster" id="m-cluster"></span>
     <h2 id="m-name"></h2>
     <p class="m-def" id="m-def"></p>
+    <div class="close-hint" data-i18n="closeHint">Click anywhere to close</div>
+  </div>
+</div>
+
+<div class="backdrop" id="scale-backdrop" role="dialog" aria-modal="true" aria-labelledby="sm-title" tabindex="-1">
+  <div class="modal scale-modal" id="scale-modal">
+    <div class="sm-head">
+      <div class="sm-dot" aria-hidden="true"></div>
+      <h2 class="sm-title" id="sm-title"></h2>
+    </div>
+    <p class="sm-question" id="sm-question"></p>
+    <div class="sm-bar" aria-hidden="true">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg>
+      <span class="sm-left-label" id="sm-left-label"></span>
+      <span class="sm-divider"></span>
+      <span class="sm-right-label" id="sm-right-label"></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l6 6-6 6"/></svg>
+    </div>
+    <div class="sm-cols">
+      <div class="sm-pill">
+        <h3 id="sm-left-name"></h3>
+        <p id="sm-left-body"></p>
+      </div>
+      <div class="sm-pill">
+        <h3 id="sm-right-name"></h3>
+        <p id="sm-right-body"></p>
+      </div>
+    </div>
+    <p class="sm-note" id="sm-note"></p>
     <div class="close-hint" data-i18n="closeHint">Click anywhere to close</div>
   </div>
 </div>
@@ -355,6 +504,41 @@ const I18N = {
     footer: '© Six Seconds — The Emotional Intelligence Network · <a href="https://www.6seconds.org/" target="_blank" rel="noopener">6seconds.org</a>',
     scale: { focus: "Focus", decisions: "Decisions", drive: "Drive" },
     cluster: { focus: "Focus", decisions: "Decisions", drive: "Drive" },
+    scales: {
+      focus: {
+        name: "Focus",
+        question: "How your brain gathers information: what kind of information does your brain focus on first?",
+        leftLabel: "Talents for rational data",
+        rightLabel: "Talents for emotional data",
+        leftName: "Rational",
+        rightName: "Emotional",
+        leftBody: "the facts, the text, what is said, the logic.",
+        rightBody: "the feelings in the room, how it is said.",
+        note: "This is not about what kind of person you are, nor about your behaviors; it's about what kind of information your brain seeks."
+      },
+      decisions: {
+        name: "Decisions",
+        question: "How does your brain tend to assess the data?",
+        leftLabel: "Talents for evaluation",
+        rightLabel: "Talents for innovation",
+        leftName: "Evaluative",
+        rightName: "Innovative",
+        leftBody: "Evaluating risks and considering how to avoid them.",
+        rightBody: "Creating alternatives, change and opportunities.",
+        note: "This is not about your ability to innovate; it's about how you make decisions."
+      },
+      drive: {
+        name: "Drive",
+        question: "What gives your brain energy?",
+        leftLabel: "Talents for practical action",
+        rightLabel: "Talents for idealistic action",
+        leftName: "Practical",
+        rightName: "Idealistic",
+        leftBody: "Energized by taking actions and driving results.",
+        rightBody: "Energized by purpose and a long term vision.",
+        note: "This is not about how you are; it's about what motivates your brain."
+      }
+    },
     talents: {
       "data-mining":       { name: "Data Mining",        def: "Filtering to assess key information." },
       "modeling":          { name: "Modeling",           def: "Mapping out logical possibilities." },
@@ -383,6 +567,41 @@ const I18N = {
     footer: '© Six Seconds — La Rete dell\'Intelligenza Emotiva · <a href="https://www.6seconds.it/" target="_blank" rel="noopener">6seconds.it</a>',
     scale: { focus: "Percezione", decisions: "Valutazione", drive: "Azione" },
     cluster: { focus: "Percezione", decisions: "Valutazione", drive: "Azione" },
+    scales: {
+      focus: {
+        name: "Percezione",
+        question: "Come il tuo cervello raccoglie le informazioni: su quale tipo di informazioni si focalizza per prime?",
+        leftLabel: "App per dati razionali",
+        rightLabel: "App per dati emotivi",
+        leftName: "Razionale",
+        rightName: "Emotivo",
+        leftBody: "i fatti, il testo, ciò che viene detto, la logica.",
+        rightBody: "le emozioni nella stanza, il modo in cui viene detto.",
+        note: "Non riguarda il tipo di persona che sei, né i tuoi comportamenti; riguarda il tipo di informazioni che il tuo cervello cerca."
+      },
+      decisions: {
+        name: "Valutazione",
+        question: "Come tende il tuo cervello a valutare le informazioni?",
+        leftLabel: "App per valutare",
+        rightLabel: "App per innovare",
+        leftName: "Valutativo",
+        rightName: "Innovativo",
+        leftBody: "Valutare i rischi e considerare come evitarli.",
+        rightBody: "Creare alternative, cambiamento e opportunità.",
+        note: "Non riguarda la tua capacità di innovare; riguarda come prendi decisioni."
+      },
+      drive: {
+        name: "Azione",
+        question: "Cosa dà energia al tuo cervello?",
+        leftLabel: "App per l'azione pratica",
+        rightLabel: "App per l'azione idealista",
+        leftName: "Pratico",
+        rightName: "Idealista",
+        leftBody: "Energizzato dall'agire e dal raggiungere risultati.",
+        rightBody: "Energizzato dallo scopo e da una visione a lungo termine.",
+        note: "Non riguarda come sei; riguarda cosa motiva il tuo cervello."
+      }
+    },
     talents: {
       "data-mining":       { name: "Data Mining",        def: "Filtrare per avere le informazioni chiave." },
       "modeling":          { name: "Modeling",           def: "Collegare in maniera logica info differenti." },
@@ -411,6 +630,41 @@ const I18N = {
     footer: '© Six Seconds — 情商网络 · <a href="https://www.6seconds.org/" target="_blank" rel="noopener">6seconds.org</a>',
     scale: { focus: "关注", decisions: "决策", drive: "驱动" },
     cluster: { focus: "关注", decisions: "决策", drive: "驱动" },
+    scales: {
+      focus: {
+        name: "关注",
+        question: "你的大脑如何收集信息：你的大脑首先关注什么类型的信息？",
+        leftLabel: "理性数据类天赋",
+        rightLabel: "情感数据类天赋",
+        leftName: "理性",
+        rightName: "感性",
+        leftBody: "事实、文字、所说的内容、逻辑。",
+        rightBody: "氛围中的情绪、表达的方式。",
+        note: "这不是关于你是什么样的人，也不是关于你的行为；而是关于你的大脑寻求什么样的信息。"
+      },
+      decisions: {
+        name: "决策",
+        question: "你的大脑倾向于如何评估信息？",
+        leftLabel: "评估类天赋",
+        rightLabel: "创新类天赋",
+        leftName: "评估的",
+        rightName: "创新的",
+        leftBody: "评估风险并考虑如何规避。",
+        rightBody: "创造替代方案、变革与机遇。",
+        note: "这不是关于你的创新能力；而是关于你如何做决策。"
+      },
+      drive: {
+        name: "驱动",
+        question: "什么给你的大脑带来能量？",
+        leftLabel: "实际行动类天赋",
+        rightLabel: "理想行动类天赋",
+        leftName: "实际的",
+        rightName: "理想的",
+        leftBody: "通过采取行动和推动成果获得能量。",
+        rightBody: "通过目标和长期愿景获得能量。",
+        note: "这不是关于你是怎样的人；而是关于什么激励你的大脑。"
+      }
+    },
     talents: {
       "data-mining":       { name: "数据挖掘",   def: "过滤数据，评估关键信息。" },
       "modeling":          { name: "模型建构",   def: "计划合理的可能性。" },
@@ -439,6 +693,41 @@ const I18N = {
     footer: '© Six Seconds — La Red de Inteligencia Emocional · <a href="https://esp.6seconds.org/" target="_blank" rel="noopener">esp.6seconds.org</a>',
     scale: { focus: "Enfoque", decisions: "Decisiones", drive: "Motivación" },
     cluster: { focus: "Enfoque", decisions: "Decisiones", drive: "Motivación" },
+    scales: {
+      focus: {
+        name: "Enfoque",
+        question: "Cómo tu cerebro reúne la información: ¿qué tipo de información busca primero tu cerebro?",
+        leftLabel: "Talentos para datos racionales",
+        rightLabel: "Talentos para datos emocionales",
+        leftName: "Racional",
+        rightName: "Emocional",
+        leftBody: "los hechos, el texto, lo que se dice, la lógica.",
+        rightBody: "los sentimientos en el ambiente, cómo se dice.",
+        note: "Esto no se trata de qué tipo de persona eres ni de tus comportamientos; se trata de qué tipo de información busca tu cerebro."
+      },
+      decisions: {
+        name: "Decisiones",
+        question: "¿Cómo tiende tu cerebro a evaluar los datos?",
+        leftLabel: "Talentos para evaluar",
+        rightLabel: "Talentos para innovar",
+        leftName: "Evaluativo",
+        rightName: "Innovador",
+        leftBody: "Evaluar riesgos y considerar cómo evitarlos.",
+        rightBody: "Crear alternativas, cambio y oportunidades.",
+        note: "Esto no se trata de tu capacidad para innovar; se trata de cómo tomas decisiones."
+      },
+      drive: {
+        name: "Motivación",
+        question: "¿Qué le da energía a tu cerebro?",
+        leftLabel: "Talentos para acción práctica",
+        rightLabel: "Talentos para acción idealista",
+        leftName: "Práctico",
+        rightName: "Idealista",
+        leftBody: "Se energiza al tomar acción y generar resultados.",
+        rightBody: "Se energiza con el propósito y una visión a largo plazo.",
+        note: "Esto no se trata de cómo eres; se trata de qué motiva a tu cerebro."
+      }
+    },
     talents: {
       "data-mining":       { name: "Exploración de datos",   def: "Permite notar, observar y organizar detalles dentro del todo." },
       "modeling":          { name: "Mapeo de datos",         def: "Diseño de diferentes posibilidades e identificar alternativas lógicas." },
@@ -505,27 +794,47 @@ function applyLang(lang) {
     btn.querySelector("[data-label]").textContent = tl.name;
     btn.setAttribute("aria-label", tl.name);
   });
+  // Scale-bar aria-labels
+  document.querySelectorAll(".scale-bar").forEach(btn => {
+    const s = btn.dataset.scale;
+    btn.setAttribute("aria-label", dict.scale[s]);
+  });
   // Lang button state
   document.querySelectorAll(".lang button").forEach(b => {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
   // Persist
   try { localStorage.setItem("bt_lang", lang); } catch (_) {}
-  // If modal is open, refresh contents
+  // If a modal is open, refresh its contents
   if (backdrop.classList.contains("open") && currentTalent) openModal(currentTalent);
+  if (scaleBackdrop.classList.contains("open") && currentScale) openScaleModal(currentScale);
 }
 
 document.querySelectorAll(".lang button").forEach(btn => {
   btn.addEventListener("click", () => applyLang(btn.dataset.lang));
 });
 
-/* ----- Modal ----- */
+/* ----- Modals ----- */
 const backdrop = document.getElementById("backdrop");
 const mIcon = document.getElementById("m-icon");
 const mName = document.getElementById("m-name");
 const mDef  = document.getElementById("m-def");
 const mClus = document.getElementById("m-cluster");
+
+const scaleBackdrop = document.getElementById("scale-backdrop");
+const scaleModal    = document.getElementById("scale-modal");
+const smTitle       = document.getElementById("sm-title");
+const smQuestion    = document.getElementById("sm-question");
+const smLeftLabel   = document.getElementById("sm-left-label");
+const smRightLabel  = document.getElementById("sm-right-label");
+const smLeftName    = document.getElementById("sm-left-name");
+const smRightName   = document.getElementById("sm-right-name");
+const smLeftBody    = document.getElementById("sm-left-body");
+const smRightBody   = document.getElementById("sm-right-body");
+const smNote        = document.getElementById("sm-note");
+
 let currentTalent = null;
+let currentScale  = null;
 let lastFocus = null;
 
 function openModal(t) {
@@ -548,12 +857,52 @@ function openModal(t) {
 function closeModal() {
   backdrop.classList.remove("open");
   currentTalent = null;
-  document.body.style.overflow = "";
-  if (lastFocus && lastFocus.focus) lastFocus.focus();
+  if (!scaleBackdrop.classList.contains("open")) {
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
 }
+
+function openScaleModal(scaleId) {
+  currentScale = scaleId;
+  const dict = I18N[currentLang];
+  const s = dict.scales[scaleId];
+  scaleModal.className = "modal scale-modal " + scaleId;
+  smTitle.textContent     = s.name;
+  smQuestion.textContent  = s.question;
+  smLeftLabel.textContent = s.leftLabel;
+  smRightLabel.textContent= s.rightLabel;
+  smLeftName.textContent  = s.leftName;
+  smRightName.textContent = s.rightName;
+  smLeftBody.textContent  = s.leftBody;
+  smRightBody.textContent = s.rightBody;
+  smNote.textContent      = s.note;
+  if (!scaleBackdrop.classList.contains("open")) {
+    lastFocus = document.activeElement;
+    scaleBackdrop.classList.add("open");
+    scaleBackdrop.focus();
+    document.body.style.overflow = "hidden";
+  }
+}
+function closeScaleModal() {
+  scaleBackdrop.classList.remove("open");
+  currentScale = null;
+  if (!backdrop.classList.contains("open")) {
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+}
+
 backdrop.addEventListener("click", closeModal);
+scaleBackdrop.addEventListener("click", closeScaleModal);
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && backdrop.classList.contains("open")) closeModal();
+  if (e.key !== "Escape") return;
+  if (scaleBackdrop.classList.contains("open")) closeScaleModal();
+  else if (backdrop.classList.contains("open")) closeModal();
+});
+
+document.querySelectorAll(".scale-bar").forEach(btn => {
+  btn.addEventListener("click", () => openScaleModal(btn.dataset.scale));
 });
 
 /* ----- Init ----- */
