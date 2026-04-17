@@ -391,6 +391,7 @@
       <button type="button" data-lang="it">IT</button>
       <button type="button" data-lang="zh">中文</button>
       <button type="button" data-lang="es">ES</button>
+      <button type="button" data-lang="vi">VI</button>
     </nav>
   </header>
 
@@ -747,6 +748,69 @@ const I18N = {
       "vision":            { name: "Visión",                 def: "Crea y sustenta una visión a largo plazo que le provee energía y propósito." },
       "design":            { name: "Diseño",                 def: "Ayuda a combinar la visión a largo plazo dentro del contexto actual." },
       "entrepreneurship":  { name: "Emprendimiento",         def: "Facilita la capacidad para emprender la búsqueda de potencial." },
+    }
+  },
+  vi: {
+    title: "18 Năng khiếu Não bộ",
+    subtitle: "Nhấp vào bất kỳ năng khiếu nào để tìm hiểu thêm",
+    closeHint: "Nhấp vào bất kỳ đâu để đóng",
+    footer: '© Six Seconds — Mạng lưới Trí tuệ Cảm xúc · <a href="https://www.6seconds.org/" target="_blank" rel="noopener">6seconds.org</a>',
+    scale: { focus: "Tập trung", decisions: "Ra quyết định", drive: "Tạo động lực" },
+    cluster: { focus: "Tập trung", decisions: "Ra quyết định", drive: "Tạo động lực" },
+    scales: {
+      focus: {
+        name: "Tập trung",
+        question: "Cách bộ não của bạn thu thập thông tin: loại thông tin nào bộ não của bạn tập trung vào trước?",
+        leftLabel: "Năng khiếu tập trung xử lý dữ liệu lý trí",
+        rightLabel: "Năng khiếu tập trung xử lý dữ liệu cảm xúc",
+        leftName: "Lý trí",
+        rightName: "Cảm xúc",
+        leftBody: "dữ kiện, nội dung, điều được nói, logic.",
+        rightBody: "cảm xúc trong không gian, cách điều đó được nói.",
+        note: "Điều này không nói về bạn là kiểu người nào, cũng không nói về hành vi của bạn; mà nói về loại thông tin mà bộ não của bạn tìm kiếm."
+      },
+      decisions: {
+        name: "Ra quyết định",
+        question: "Bộ não của bạn có xu hướng đánh giá dữ liệu như thế nào?",
+        leftLabel: "Năng khiếu ra quyết định kiểu cân nhắc",
+        rightLabel: "Năng khiếu ra quyết định kiểu sáng tạo",
+        leftName: "Cân nhắc",
+        rightName: "Sáng tạo",
+        leftBody: "Đánh giá rủi ro và cân nhắc cách tránh chúng.",
+        rightBody: "Tạo ra các phương án, sự thay đổi và cơ hội.",
+        note: "Điều này không nói về khả năng sáng tạo của bạn; mà nói về cách bạn ra quyết định."
+      },
+      drive: {
+        name: "Tạo động lực",
+        question: "Điều gì mang lại năng lượng cho bộ não của bạn?",
+        leftLabel: "Năng khiếu thực hiện mục tiêu ngắn hạn",
+        rightLabel: "Năng khiếu thực hiện tầm nhìn dài hạn",
+        leftName: "Ngắn hạn",
+        rightName: "Dài hạn",
+        leftBody: "Được tiếp thêm năng lượng nhờ hành động và thúc đẩy kết quả.",
+        rightBody: "Được tiếp thêm năng lượng nhờ mục đích và tầm nhìn dài hạn.",
+        note: "Điều này không nói về con người bạn; mà nói về điều gì tạo động lực cho bộ não của bạn."
+      }
+    },
+    talents: {
+      "data-mining":       { name: "Khai thác dữ liệu",   def: "Khả năng quan sát rõ ràng, đi sâu vào các chi tiết và hiểu rõ vấn đề." },
+      "modeling":          { name: "Mô hình hóa",         def: "Vạch ra các khả năng trên lý thuyết và định hướng giải pháp hợp lý." },
+      "prioritizing":      { name: "Lên thứ tự ưu tiên",  def: "Nhận định các khả năng một cách logic và sắp xếp theo mức độ quan trọng." },
+      "connection":        { name: "Kết nối",             def: "Hiểu và thấu cảm với người khác để xây dựng mối quan hệ, mạng lưới, cộng đồng vững chắc." },
+      "emotional-insight": { name: "Hiểu cảm xúc",        def: "Khả năng thấu hiểu và dự đoán cảm xúc, nhu cầu cũng như động lực của con người." },
+      "collaboration":     { name: "Hợp tác",             def: "Khả năng kết nối, làm việc với người khác để phát triển sự cảm thông và hiểu biết lẫn nhau." },
+      "reflection":        { name: "Suy ngẫm",            def: "Khả năng đánh giá rủi ro và xem xét tình hình trước khi bắt đầu hành động." },
+      "adaptability":      { name: "Thích ứng",           def: "Khả năng xem xét vấn đề dưới nhiều góc độ, từ đó đánh giá và thay đổi khi cần thiết." },
+      "critical-thinking": { name: "Tư duy phản biện",    def: "Khả năng đưa ra quyết định tốt hơn thông qua việc đánh giá ưu, nhược điểm ở hiện tại và tương lai." },
+      "resilience":        { name: "Bền bỉ dẻo dai",      def: "Khả năng biến thách thức thành cơ hội, học hỏi từ sai lầm và tiến về phía trước." },
+      "risk-tolerance":    { name: "Chấp nhận rủi ro",    def: "Khả năng chịu đựng các vấn đề phức tạp không biết trước và duy trì cân bằng." },
+      "imagination":       { name: "Sáng tạo",            def: "Khả năng nhìn ra những gì mà người khác không thấy, kết hợp giữa suy nghĩ và cảm xúc để nhận biết tiềm năng." },
+      "proactivity":       { name: "Chủ động",            def: "Khả năng cam kết hành động và đạt được kết quả mà không cần nhờ đến yếu tố bên ngoài thúc đẩy." },
+      "commitment":        { name: "Cam kết",             def: "Khả năng duy trì sự tập trung và chú ý vào những điều quan trọng." },
+      "problem-solving":   { name: "Giải quyết vấn đề",   def: "Khả năng tạo ra năng lượng và nguồn cảm hứng để đạt kết quả từ những giải pháp mới." },
+      "vision":            { name: "Tầm nhìn",            def: "Khả năng tạo ra mục tiêu dài hạn có ý nghĩa nhằm thúc đẩy hành động." },
+      "design":            { name: "Thiết kế",            def: "Khả năng kết nối tầm nhìn lâu dài dựa trên việc nhìn nhận chính xác thực tại." },
+      "entrepreneurship":  { name: "Tư duy làm chủ",      def: "Khả năng nhìn thấy trước tương lai, biến thách thức thành cơ hội và vạch ra lộ trình đi tới." },
     }
   },
 };

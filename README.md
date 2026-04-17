@@ -2,7 +2,7 @@
 
 A self-contained, no-build, single-page web app that lets visitors click any of the
 18 Six Seconds Brain Talents to read its definition. Includes a language selector
-for **English / Italiano / 中文 / Español**.
+for **English / Italiano / 中文 / Español / Tiếng Việt**.
 
 Designed to be embedded as an `<iframe>` inside the Divi page at
 `www.6seconds.org/talents`.
@@ -92,7 +92,14 @@ add a `<button data-lang="xx">XX</button>` inside `<nav class="lang">`.
 | EN       | `talent-definitions.png` (English) | `talent-definitions.png` + Brain Talent Interpretation Guide |
 | IT       | English (per Joshua)               | `Brain-Talent-Interpretation-Guide-IT.pdf` p.4           |
 | ZH       | `BTP(Chinese).pdf`                 | `Brain-Talent-Interpretation-Guide-4.0-CN.pdf` pp.4–5    |
-| ES       | `BTP(Spanish).pdf`                 | `Guía+de+Brain+Talent+ESP.pdf` pp.4–6                    |
+| ES       | Updated team graphic (Apr 2026)    | `Guía+de+Brain+Talent+ESP.pdf` pp.4–6                    |
+| VI       | Huong's `Talent translation – Vietnamese – Josh.xlsx` | Same xlsx; UI strings + scale-modal copy AI-translated (flag for review) |
+
+### Scale-modal (Brain Style Scales) copy
+Source: `BBP Guide Final - for end users v1 2026.pdf` page 4. EN is verbatim.
+IT / ZH / ES / VI scale questions, cluster blurbs, and footer notes are
+AI-translated following the terminology in each language's Brain Talent guide —
+native-speaker review recommended before wide release.
 
 ## Browser support
 
